@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Affogato",
+    "price": 240000
+  },
+  {
+    "id": 2,
+    "name": "Americano",
+    "price": 220000
+  },
+  {
+    "id": 3,
+    "name": "Cappuccino",
+    "price": 210000
+  },
+  {
+    "id": 4,
+    "name": "Latte",
+    "price": 250000
+  }
+]
