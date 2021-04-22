@@ -1,5 +1,7 @@
 const http = require('http');
 const url = require('url');
+const { parse } = require('querystring');
+
 
 function run(route, handle) {
     function onRequest(request, response) {
@@ -10,7 +12,6 @@ function run(route, handle) {
         request.queryString = url.parse(request.url, true).query;
 
         request.setEncoding('utf8');
-        request.headers['content-type'] = 'multipart/form-data';
 
         request.addListener('error', (err) => {
             if (err) {
@@ -21,11 +22,11 @@ function run(route, handle) {
         });
 
         request.addListener('data', chunk => {
-            body.push(chunk);
+            body += chunk.toString();
         });
 
         request.addListener('end', () => {
-            request.body = body;
+            request.body = parse(body);
             route(handle, response, request);
         });
 
