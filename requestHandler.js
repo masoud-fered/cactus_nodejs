@@ -1,10 +1,16 @@
 const fs = require('fs');
 
-function createCoffee(response, coffee) {
+function createCoffee(request, response) {
+    const coffee = {
+        'id': Number(request.body.id),
+        'name': request.body.name,
+        'price': Number(request.body.price)
+    }
+
     fs.readFile('./data.json', ((error, fileContent) => {
         const data = JSON.parse(fileContent.toString());
         data.push(coffee);
-        fs.writeFile('./data.json', data, () => {});
+        fs.writeFile('./data.json', JSON.stringify(data), () => {});
         response.writeHead(200, {'Content-Type': 'application/json'})
         response.write(JSON.stringify(coffee));
         response.end();
@@ -40,7 +46,13 @@ function readCoffee(request, response) {
     }));
 }
 
-function updateCoffee(request, response, newCoffee) {
+function updateCoffee(request, response) {
+    const newCoffee = {
+        'id': undefined,
+        'name': request.body.name,
+        'price': Number(request.body.price)
+    }
+
     fs.readFile('./data.json', ((error, fileContent) => {
         const id = Number(request.queryString.id);
         const name = request.queryString.name;
@@ -59,8 +71,9 @@ function updateCoffee(request, response, newCoffee) {
             if (oldCoffee === undefined) {
                 response.write("{}");
             } else {
+                newCoffee.id = oldCoffee.id;
                 data[data.indexOf(oldCoffee)] = newCoffee;
-                fs.writeFile('./data.json', data, () => {});
+                fs.writeFile('./data.json', JSON.stringify(data), () => {});
                 response.writeHead(200, {'Content-Type': 'application/json'})
                 response.write(JSON.stringify(newCoffee));
                 response.end();
