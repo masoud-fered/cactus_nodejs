@@ -53,7 +53,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/coffee?id=1",
+							"raw": "{{host}}/api/v1/coffee?id=4",
 							"host": [
 								"{{host}}"
 							],
@@ -65,12 +65,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1"
-								},
-								{
-									"key": "name",
-									"value": "Latte",
-									"disabled": true
+									"value": "4"
 								}
 							]
 						}
@@ -86,6 +81,11 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								},
+								{
 									"key": "name",
 									"value": "abcd",
 									"type": "text"
@@ -98,7 +98,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/coffee?id=10",
+							"raw": "{{host}}/api/v1/coffee",
 							"host": [
 								"{{host}}"
 							],
@@ -106,17 +106,6 @@
 								"api",
 								"v1",
 								"coffee"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "Latte",
-									"disabled": true
-								},
-								{
-									"key": "id",
-									"value": "10"
-								}
 							]
 						}
 					},
@@ -127,8 +116,18 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{host}}/api/v1/coffee?id=2",
+							"raw": "{{host}}/api/v1/coffee",
 							"host": [
 								"{{host}}"
 							],
@@ -136,17 +135,6 @@
 								"api",
 								"v1",
 								"coffee"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								},
-								{
-									"key": "name",
-									"value": "Latte",
-									"disabled": true
-								}
 							]
 						}
 					},
