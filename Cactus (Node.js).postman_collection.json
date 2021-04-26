@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Coffee",
+			"name": "Coffees",
 			"item": [
 				{
 					"name": "Create",
@@ -34,14 +34,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/coffee",
+							"raw": "{{host}}/api/v1/coffees",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"coffee"
+								"coffees"
 							]
 						}
 					},
@@ -53,19 +53,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/coffee?id=4",
+							"raw": "{{host}}/api/v1/coffees",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"coffee"
+								"coffees"
 							],
 							"query": [
 								{
 									"key": "id",
-									"value": "4"
+									"value": "4",
+									"disabled": true
 								}
 							]
 						}
@@ -98,14 +99,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/coffee",
+							"raw": "{{host}}/api/v1/coffees",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"coffee"
+								"coffees"
 							]
 						}
 					},
@@ -127,14 +128,134 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/coffee",
+							"raw": "{{host}}/api/v1/coffees",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"coffee"
+								"coffees"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE5NDYyMTAyLCJleHAiOjE2MTk0NjU3MDJ9.aNwOi1ub6nIrT5NxvAE7Jo3DRj07-5fqflry4r-3wDw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "firstName",
+									"value": "Masoud",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Fered",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "masoud.fered@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/users/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "masoud.fered@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/users/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
 							]
 						}
 					},
