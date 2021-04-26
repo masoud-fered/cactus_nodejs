@@ -10,7 +10,8 @@ function createCoffee(request, response) {
     fs.readFile('./data.json', ((error, fileContent) => {
         const data = JSON.parse(fileContent.toString());
         data.push(coffee);
-        fs.writeFile('./data.json', JSON.stringify(data), () => {});
+        fs.writeFile('./data.json', JSON.stringify(data), () => {
+        });
         response.writeHead(200, {'Content-Type': 'application/json'})
         response.write(JSON.stringify(coffee));
         response.end();
@@ -20,25 +21,19 @@ function createCoffee(request, response) {
 function readCoffee(request, response) {
     fs.readFile('./data.json', ((error, fileContent) => {
         const id = Number(request.queryString.id);
-        const name = request.queryString.name;
         const data = JSON.parse(fileContent.toString());
+        let coffee = undefined;
+
         response.writeHead(200, {'Content-Type': 'application/json'})
 
-        if (id > 0 || name != null || name !== undefined) {
-            let coffee = undefined;
-
-            if (id > 0) {
-                coffee = data.find(coffee => coffee.id === id);
-            } else if (name != null || name !== undefined) {
-                coffee = data.find(coffee => coffee.name === name);
-            }
+        if (id > 0) {
+            coffee = data.find(coffee => coffee.id === id);
 
             if (coffee === undefined) {
                 response.write("{}");
             } else {
                 response.write(JSON.stringify(coffee));
             }
-
         } else {
             response.write(fileContent);
         }
@@ -48,65 +43,49 @@ function readCoffee(request, response) {
 
 function updateCoffee(request, response) {
     const newCoffee = {
-        'id': undefined,
+        'id': Number(request.body.id),
         'name': request.body.name,
         'price': Number(request.body.price)
     }
 
     fs.readFile('./data.json', ((error, fileContent) => {
-        const id = Number(request.queryString.id);
-        const name = request.queryString.name;
         const data = JSON.parse(fileContent.toString());
         response.writeHead(200, {'Content-Type': 'application/json'})
 
-        if (id > 0 || name != null || name !== undefined) {
-            let oldCoffee = undefined;
+        let oldCoffee = data.find(oldCoffee => oldCoffee.id === newCoffee.id);
 
-            if (id > 0) {
-                oldCoffee = data.find(oldCoffee => oldCoffee.id === id);
-            } else if (name != null || name !== undefined) {
-                oldCoffee = data.find(oldCoffee => oldCoffee.name === name);
-            }
-
-            if (oldCoffee === undefined) {
-                response.write("{}");
-            } else {
-                newCoffee.id = oldCoffee.id;
-                data[data.indexOf(oldCoffee)] = newCoffee;
-                fs.writeFile('./data.json', JSON.stringify(data), () => {});
-                response.writeHead(200, {'Content-Type': 'application/json'})
-                response.write(JSON.stringify(newCoffee));
-                response.end();
-            }
+        if (oldCoffee === undefined) {
+            response.write("{}");
+            response.end();
+        } else {
+            data[data.indexOf(oldCoffee)] = newCoffee;
+            fs.writeFile('./data.json', JSON.stringify(data), () => {
+            });
+            response.writeHead(200, {'Content-Type': 'application/json'})
+            response.write(JSON.stringify(newCoffee));
+            response.end();
         }
     }));
 }
 
 function deleteCoffee(request, response) {
     fs.readFile('./data.json', ((error, fileContent) => {
-        const id = Number(request.queryString.id);
-        const name = request.queryString.name;
+        const id = Number(request.body.id);
+
         const data = JSON.parse(fileContent.toString());
         response.writeHead(200, {'Content-Type': 'application/json'})
 
-        if (id > 0 || name != null || name !== undefined) {
-            let coffee = undefined;
+        let coffee = data.find(coffee => coffee.id === id);
 
-            if (id > 0) {
-                coffee = data.find(coffee => coffee.id === id);
-            } else if (name != null || name !== undefined) {
-                coffee = data.find(coffee => coffee.name === name);
-            }
-
-            if (coffee === undefined) {
-                response.write("{}");
-            } else {
-                data.splice(data.indexOf(coffee), 1);
-                fs.writeFile('./data.json', JSON.stringify(data), () => {});
-                response.writeHead(200, {'Content-Type': 'application/json'})
-                response.write(JSON.stringify(coffee));
-                response.end();
-            }
+        if (coffee === undefined) {
+            response.write("{}");
+            response.end();
+        } else {
+            data.splice(data.indexOf(coffee), 1);
+            fs.writeFile('./data.json', JSON.stringify(data), () => {
+            });
+            response.writeHead(200, {'Content-Type': 'application/json'})
+            response.write(JSON.stringify(coffee));
         }
     }));
 }
