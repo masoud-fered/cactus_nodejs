@@ -6,6 +6,8 @@ const {parse} = require('querystring');
 
 function run(route, handle) {
     function onRequest(request, response) {
+        console.log(process.pid);
+
         let body = [];
         const baseUrl = 'https://' + request.headers.host + '/';
         const myUrl = new URL(request.url, baseUrl);
@@ -28,7 +30,10 @@ function run(route, handle) {
 
         request.addListener('end', () => {
             request.body = parse(body);
-            route(handle, response, request);
+
+            setTimeout(() => {
+                route(handle, response, request);
+            }, 10000);
         });
 
     }
