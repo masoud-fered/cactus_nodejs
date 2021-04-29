@@ -1,12 +1,15 @@
 {
   "name": "cactus",
   "version": "1.0.0",
-  "description": "Cactus Coffeehouse is exercise for session 8 (Create first Node.js server) of Backpack course in Part Academy",
+  "description": "Cactus Coffeehouse is exercise for session 11-02 (Database) of Backpack course in Part Academy",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Masoud Mohammadi Fard",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
 }

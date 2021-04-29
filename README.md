@@ -1,2 +1,2 @@
 # Cactus (Node.js)
-Cactus Coffeehouse is exercise for session 8 (Create first Node.js server) of Backpack course in Part Academy
+Cactus Coffeehouse is exercise for session 11-02 (Database) of Backpack course in Part Academy
