@@ -31,9 +31,9 @@ function run(route, handle) {
         request.addListener('end', () => {
             request.body = parse(body);
 
-            setTimeout(() => {
+            // setTimeout(() => {
                 route(handle, response, request);
-            }, 10000);
+            // }, 10000);
         });
 
     }
