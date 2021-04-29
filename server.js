@@ -1,10 +1,13 @@
 const http = require('http');
 const url = require('url');
-const { parse } = require('querystring');
-
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+const {parse} = require('querystring');
 
 function run(route, handle) {
     function onRequest(request, response) {
+        console.log(process.pid);
+
         let body = [];
         const baseUrl = 'https://' + request.headers.host + '/';
         const myUrl = new URL(request.url, baseUrl);
@@ -27,12 +30,27 @@ function run(route, handle) {
 
         request.addListener('end', () => {
             request.body = parse(body);
-            route(handle, response, request);
+
+            setTimeout(() => {
+                route(handle, response, request);
+            }, 10000);
         });
 
     }
 
-    http.createServer(onRequest).listen(8000);
+    if (cluster.isMaster) {
+        console.log(`Master ${process.pid} is running`);
+
+        // Fork workers.
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork();
+        }
+
+    } else {
+        console.log(`Worker ${process.pid} started`);
+
+        http.createServer(onRequest).listen(8000);
+    }
 }
 
 module.exports = {run}
